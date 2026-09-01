@@ -22,5 +22,14 @@ pipeline {
                 }
             }
         }
+
+        stage('Docker Build') {
+            agent any
+
+            steps {
+                sh 'docker build -t devops-cicd-backend:${BUILD_NUMBER} ./backend'
+                sh 'docker build -t devops-cicd-frontend:${BUILD_NUMBER} ./frontend'
+            }
+        }
     }
 }

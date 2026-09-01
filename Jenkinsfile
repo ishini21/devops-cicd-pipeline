@@ -1,20 +1,20 @@
-pipeline {
-    agent none
+stage('Backend Test') {
+    agent {
+        docker {
+            image 'node:22-alpine'
+        }
+    }
 
-    stages {
-        stage('Backend Test') {
-            agent {
-                docker {
-                    image 'node:22-alpine'
-                }
-            }
+    environment {
+        HOME = "${WORKSPACE}"
+        NPM_CONFIG_CACHE = "${WORKSPACE}/.npm"
+    }
 
-            steps {
-                dir('backend') {
-                    sh 'npm ci'
-                    sh 'npm test'
-                }
-            }
+    steps {
+        dir('backend') {
+            sh 'rm -rf node_modules'
+            sh 'npm ci'
+            sh 'npm test'
         }
     }
 }

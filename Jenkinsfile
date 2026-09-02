@@ -31,5 +31,28 @@ pipeline {
                 sh 'docker build -t devops-cicd-frontend:${BUILD_NUMBER} ./frontend'
             }
         }
+        stage('Push Docker Images') {
+    agent any
+
+    steps {
+        withCredentials([
+            usernamePassword(
+                credentialsId: 'dockerhub-credentials',
+                usernameVariable: 'DOCKERHUB_USERNAME',
+                passwordVariable: 'DOCKERHUB_PASSWORD'
+            )
+        ]) {
+            sh '''
+                echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+
+                docker tag devops-cicd-backend:${BUILD_NUMBER} $DOCKERHUB_USERNAME/devops-cicd-backend:${BUILD_NUMBER}
+                docker tag devops-cicd-frontend:${BUILD_NUMBER} $DOCKERHUB_USERNAME/devops-cicd-frontend:${BUILD_NUMBER}
+
+                docker push $DOCKERHUB_USERNAME/devops-cicd-backend:${BUILD_NUMBER}
+                docker push $DOCKERHUB_USERNAME/devops-cicd-frontend:${BUILD_NUMBER}
+            '''
+        }
+    }
+}
     }
 }

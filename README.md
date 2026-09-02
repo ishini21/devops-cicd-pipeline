@@ -8,7 +8,7 @@ The project uses separate EC2 instances for the Jenkins CI/CD server and the app
 
 ## Architecture
 
-![CI/CD Architecture](./cicd-architecture.png)
+![CI/CD Architecture](.images/cicd-architecture.png)
 ---
 
 ## Project Overview

@@ -54,13 +54,19 @@ pipeline {
         }
     }
 }
-stage('Test App Server SSH') {
+stage('Deploy to App Server') {
     agent any
 
     steps {
         sshagent(credentials: ['app-server-ssh']) {
             sh '''
-                ssh -o StrictHostKeyChecking=no ubuntu@172.31.26.202 "hostname && docker --version"
+                ssh -o StrictHostKeyChecking=no ubuntu@172.31.26.202 "
+                    cd ~/devops-cicd-pipeline &&
+                    git pull origin main &&
+                    IMAGE_TAG=${BUILD_NUMBER} docker compose -f docker-compose.prod.yml pull &&
+                    IMAGE_TAG=${BUILD_NUMBER} docker compose -f docker-compose.prod.yml up -d &&
+                    IMAGE_TAG=${BUILD_NUMBER} docker compose -f docker-compose.prod.yml ps
+                "
             '''
         }
     }

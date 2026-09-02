@@ -1,0 +1,14 @@
+services:
+  backend:
+    image: ishini25/devops-cicd-backend:${IMAGE_TAG}
+    container_name: devops-backend
+    restart: unless-stopped
+
+  frontend:
+    image: ishini25/devops-cicd-frontend:${IMAGE_TAG}
+    container_name: devops-frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - backend

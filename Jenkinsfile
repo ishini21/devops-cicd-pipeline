@@ -54,5 +54,16 @@ pipeline {
         }
     }
 }
+stage('Test App Server SSH') {
+    agent any
+
+    steps {
+        sshagent(credentials: ['app-server-ssh']) {
+            sh '''
+                ssh -o StrictHostKeyChecking=no ubuntu@172.31.26.202 "hostname && docker --version"
+            '''
+        }
+    }
+}
     }
 }

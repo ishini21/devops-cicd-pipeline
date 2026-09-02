@@ -8,7 +8,7 @@ The project uses separate EC2 instances for the Jenkins CI/CD server and the app
 
 ## Architecture
 
-
+![CI/CD Architecture](./cicd-architecture.png)
 ---
 
 ## Project Overview
@@ -20,23 +20,7 @@ A GitHub webhook automatically triggers Jenkins, which runs the CI/CD pipeline a
 ### Automated workflow
 
 ```
-Git Push
-   ↓
-GitHub Webhook
-   ↓
-Jenkins Pipeline
-   ↓
-Automated Tests
-   ↓
-Docker Image Build
-   ↓
-Docker Hub
-   ↓
-SSH Deployment
-   ↓
-Docker Compose
-   ↓
-Application Health Check
+![CI/CD Flow](./cicd-flow.png)
 ```
 
 No manual deployment is required after the pipeline is triggered.

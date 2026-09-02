@@ -71,5 +71,18 @@ stage('Deploy to App Server') {
         }
     }
 }
+stage('Verify Deployment') {
+    agent any
+
+    steps {
+        sh '''
+            echo "Checking application health..."
+
+            sleep 5
+
+            curl -f http://172.31.26.202/api/health
+        '''
+    }
+}
     }
 }

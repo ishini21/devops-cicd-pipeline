@@ -20,7 +20,7 @@ function App() {
       <h1>DevOps CI/CD Pipeline</h1>
 
       <p>
-        Full-stack application deployed using an automated CI/CD pipeline.
+        Full-Stack application deployed using an automated CI/CD pipeline.
       </p>
 
       <div className="card">
